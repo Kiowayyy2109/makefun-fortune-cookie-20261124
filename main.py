@@ -4,6 +4,11 @@ Writes one original line of fortune-cookie wisdom for a software
 developer to $MAKEFUN_OUTPUT_DIR/entry.txt (default /output/entry.txt).
 
 The line must be at most 120 characters, as required by the competition.
+
+The fortune itself plays on a developer's dread of a feared bug: the
+relief is that the bug was already fixed, quietly, in a branch the
+developer forgot they had even merged away from. The line is kept as
+the named module constant LINE so main() writes exactly that text.
 """
 
 import os
@@ -11,6 +16,8 @@ import os
 LINE = "The bug you fear most is already fixed in the branch you forgot to merge."
 
 MAX_CHARS = 120
+
+OUTPUT_FILENAME = "entry.txt"
 
 
 def main() -> None:
@@ -20,7 +27,7 @@ def main() -> None:
             % (len(LINE), MAX_CHARS)
         )
     output_dir = os.environ.get("MAKEFUN_OUTPUT_DIR", "/output")
-    path = os.path.join(output_dir, "entry.txt")
+    path = os.path.join(output_dir, OUTPUT_FILENAME)
     os.makedirs(output_dir, exist_ok=True)
     with open(path, "w", encoding="utf-8") as f:
         f.write(LINE + "\n")
